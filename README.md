@@ -1,27 +1,11 @@
-# 🚘 Fleet Performance & Optimization Analysis
+1. Background and Overview
+This BI report provides a comprehensive analysis of Zeda LIMITED's fleet performance, financial metrics, and operational efficiency. The report serves internal stakeholders (EXCO, General Managers) and external stakeholders (OEMs, NAAMSA) with data-driven insights to support strategic decision-making.
 
-## 🔍 Project Overview
+Key Objectives:
+Monitor fleet health, utilization, and cost efficiency.
 
-This project simulates an end-to-end **Fleet Analytics and Optimization** solution for **Zeda Limited (Avis Budget South Africa)**. It showcases how a Fleet Analyst can drive strategic insights and operational improvements using a **modern Azure + Microsoft Fabric analytics stack**.
+Assess financial performance (revenue, EBITDA, ROIC).
 
-The solution covers:
-- Fleet utilization and profitability analysis
-- Forecasting optimal vehicle mix and identifying idle assets
-- Real-time operational and executive reporting using **Power BI in Fabric**
+Provide OEMs with benchmarking data for fleet optimization.
 
----
-
-## 🧰 Tech Stack
-
-| Layer              | Technology                                |
-|-------------------|--------------------------------------------|
-| Data Ingestion     | Azure Data Factory (ADF)                  |
-| Data Transformation| Azure Databricks (PySpark / Delta)        |
-| Analytics Engine   | SparkSQL Endpoint (Databricks SQL)        |
-| Reporting Layer    | Microsoft Fabric (Power BI, DirectLake)   |
-| Storage            | OneLake / ADLS Gen2 (Bronze/Silver/Gold)  |
-
----
-
-## 📁 Project Structure
-
+Support NAAMSA with industry-aligned fleet analytics.
