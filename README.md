@@ -1,184 +1,109 @@
-# **Zeda LIMITED Fleet Analytics BI Report**  
-### **ReadMe Document**  
+# 📊 Pinnova Mobility Group | Fleet & Financial Performance BI Report  
 
 ---
 
-## **1. Background and Overview**  
-This BI report provides a comprehensive analysis of Zeda LIMITED's fleet performance, financial metrics, and operational efficiency. The report serves **internal stakeholders** (EXCO, General Managers) and **external stakeholders** (OEMs, NAAMSA) with data-driven insights to support strategic decision-making.  
+## 1. Background and Overview
 
-### **Key Objectives:**  
-- Monitor fleet health, utilization, and cost efficiency.  
-- Assess financial performance (revenue, EBITDA, ROIC).  
-- Provide OEMs with benchmarking data for fleet optimization.  
-- Support NAAMSA with industry-aligned fleet analytics.  
+**Pinnova Mobility Group (Pty) Ltd** is a Southern African mobility services provider specializing in vehicle leasing, fleet rentals, and fleet lifecycle management. Serving both commercial and consumer markets, Pinnova operates a national fleet spanning multiple brands, segments, and use cases.
 
----
+This BI initiative was developed using the **Medalion architectural framework (Bronze → Silver → Gold layers)** to centralize and optimize reporting for:
 
-## **2. Data Structure Overview**  
-The data pipeline follows a **medallion architecture**:  
-- **Bronze Layer**: Raw data from CSV files (CRM, ERP, IoT).  
-- **Silver Layer**: Cleaned and transformed data.  
-- **Gold Layer**: Dimensional model for analytics (facts and dimensions).  
+- **Internal Stakeholders**: EXCO, Regional GMs, Fleet Ops, and Finance, enabling agile and data-driven planning.
+- **External Stakeholders**: OEM partners and NAAMSA, offering transparency into utilization, maintenance, and vehicle lifecycle metrics.
 
-### **Gold Layer Schema:**  
-```sql
--- ================================================================================================================
--- Create Gold Layer Tables (Star Schema)
--- ================================================================================================================
-/*
-This script creates tables in the 'gold' schema, dropping existing tables 
-if they already exist. 
-Run this script to re-define the DDL structure of the 'gold' Tables
-*/
-
-USE ZedaFleet;
-GO
-
--- Drop existing gold tables if they exist
-IF OBJECT_ID('gold.DimCustomers', 'U') IS NOT NULL DROP TABLE gold.DimCustomers;
-IF OBJECT_ID('gold.DimVehicles', 'U') IS NOT NULL DROP TABLE gold.DimVehicles;
-IF OBJECT_ID('gold.DimBranches', 'U') IS NOT NULL DROP TABLE gold.DimBranches;
-IF OBJECT_ID('gold.DimTime', 'U') IS NOT NULL DROP TABLE gold.DimTime;
-IF OBJECT_ID('gold.FactFleetPerformance', 'U') IS NOT NULL DROP TABLE gold.FactFleetPerformance;
-IF OBJECT_ID('gold.FactFinancials', 'U') IS NOT NULL DROP TABLE gold.FactFinancials;
-GO
-
--- ================================================================================================================
--- Dimension Tables
--- ================================================================================================================
-
--- DimCustomers: Customer attributes
-CREATE TABLE gold.DimCustomers (
-    customer_key INT IDENTITY(1,1) PRIMARY KEY,
-    customer_id NVARCHAR(50) NOT NULL,
-    customer_name NVARCHAR(100) NOT NULL,
-    customer_type NVARCHAR(50) NOT NULL,
-    country NVARCHAR(50),
-    customer_segment NVARCHAR(50),
-    registration_date DATE,
-    corporate_discount DECIMAL(5,2),
-    loyalty_points INT,
-    preferred_branch NVARCHAR(50)
-);
-GO
-
--- DimVehicles: Vehicle attributes
-CREATE TABLE gold.DimVehicles (
-    vehicle_key INT IDENTITY(1,1) PRIMARY KEY,
-    vehicle_id NVARCHAR(50) NOT NULL,
-    registration_number NVARCHAR(50) NOT NULL,
-    make NVARCHAR(50) NOT NULL,
-    model NVARCHAR(50) NOT NULL,
-    model_year INT,
-    vehicle_type NVARCHAR(50) NOT NULL,
-    segment NVARCHAR(50),
-    acquisition_date DATE,
-    current_value DECIMAL(12,2),
-    warranty_expiry DATE
-);
-GO
-
--- DimBranches: Branch locations
-CREATE TABLE gold.DimBranches (
-    branch_key INT IDENTITY(1,1) PRIMARY KEY,
-    branch_id NVARCHAR(50) NOT NULL,
-    branch_name NVARCHAR(100) NOT NULL,
-    city NVARCHAR(50),
-    country NVARCHAR(50)
-);
-GO
-
--- DimTime: Time hierarchy for analysis
-CREATE TABLE gold.DimTime (
-    time_key INT IDENTITY(1,1) PRIMARY KEY,
-    date DATE NOT NULL,
-    day INT NOT NULL,
-    month INT NOT NULL,
-    quarter INT NOT NULL,
-    year INT NOT NULL,
-    day_of_week NVARCHAR(10) NOT NULL
-);
-GO
-
--- ================================================================================================================
--- Fact Tables
--- ================================================================================================================
-
--- FactFleetPerformance: Fleet KPIs
-CREATE TABLE gold.FactFleetPerformance (
-    performance_key INT IDENTITY(1,1) PRIMARY KEY,
-    time_key INT NOT NULL,
-    vehicle_key INT NOT NULL,
-    branch_key INT NOT NULL,
-    odometer INT,
-    fuel_consumption DECIMAL(10,2),
-    utilization_rate DECIMAL(5,2),
-    maintenance_cost DECIMAL(12,2),
-    downtime_days INT,
-    FOREIGN KEY (time_key) REFERENCES gold.DimTime(time_key),
-    FOREIGN KEY (vehicle_key) REFERENCES gold.DimVehicles(vehicle_key),
-    FOREIGN KEY (branch_key) REFERENCES gold.DimBranches(branch_key)
-);
-GO
-
--- FactFinancials: Financial metrics
-CREATE TABLE gold.FactFinancials (
-    financial_key INT IDENTITY(1,1) PRIMARY KEY,
-    time_key INT NOT NULL,
-    branch_key INT NOT NULL,
-    revenue DECIMAL(15,2),
-    ebitda DECIMAL(15,2),
-    operating_profit DECIMAL(15,2),
-    fleet_size INT,
-    rental_days INT,
-    leasing_contracts INT,
-    FOREIGN KEY (time_key) REFERENCES gold.DimTime(time_key),
-    FOREIGN KEY (branch_key) REFERENCES gold.DimBranches(branch_key)
-);
-GO
-
-PRINT 'Gold layer tables created successfully';
-```
+The report delivers strategic insight into asset performance, customer trends, revenue generation, and operational efficiencies.
 
 ---
 
-## **3. Executive Summary**  
-### **Key Metrics (2023-2025):**  
-| **Metric**               | **2023**   | **2024**   | **2025**   |  
-|---------------------------|------------|------------|------------|  
-| Revenue (Rbn)             | 9.1        | 10.2       | 10.8       |  
-| EBITDA Margin (%)         | 36%        | 34%        | 34%        |  
-| Fleet Utilization (%)     | 74%        | 72%        | 75%        |  
-| ROIC (%)                  | 18.7       | 16.0       | 12.2       |  
+## 2. Data Architecture and Model Overview
 
-### **Highlights:**  
-- **Leasing Business**: 59% EBITDA margin (2023), driven by corporate segment.  
-- **Rental Business**: 74% utilization (2023), recovering post-pandemic.  
-- **ESG**: 22% reduction in water usage (2024).  
+The architecture leverages a **layered transformation approach** aligned with the Microsoft Fabric ecosystem:
 
----
+### Bronze Layer: Raw ingest from ERP, CRM, IoT
 
-## **4. Insights Deep Dive**  
-### **A. Fleet Utilization**  
-- **Rental**: 72% → 75% (2024-2025) due to inbound tourism recovery.  
-- **Leasing**: Heavy commercial units up **51%** (2024).  
+### Silver Layer: Cleansed operational tables (wide schema)
 
-### **B. Financial Performance**  
-- **EBITDA**: R1.7bn (H1 2023) → R1.9bn (FY 2023).  
-- **Cost Pressure**: Net finance costs up **28%** (2024) due to rising interest rates.  
+- `silver.customers`  
+- `silver.vehicles`  
+- `silver.sales`  
+- `silver.rentals`  
+- `silver.leasing_contracts`  
+- `silver.maintenance`  
+- `silver.customer_interactions`  
+- `silver.vehicle_telemetry`
 
-### **C. ESG Impact**  
-- **Carbon Emissions**: 4% reduction (2024).  
-- **Safety**: Zero fatalities maintained (2023-2025).  
+### Gold Layer: Star Schema for BI
+
+#### Dimensions:
+- `DimCustomers`, `DimVehicles`, `DimBranches`, `DimTime`
+
+#### Fact Tables:
+- `FactFleetPerformance`: Odometer, fuel, downtime, maintenance cost, utilization  
+- `FactFinancials`: Revenue, EBITDA, operating profit, rental/lease activity
 
 ---
 
-## **5. Recommendations**  
-### **For Internal Stakeholders (EXCO/GMs):**  
-1. **Optimize Fleet Mix**: Increase operating leases to reduce capital expenditure.  
-2. **Cost Control**: Renegotiate OEM contracts to mitigate used car margin pressure.  
-3. **Expand Subscription Model**: 49% growth in 2025 shows potential.  
+## 3. Executive Summary
 
-### **For External Stakeholders (OEMs/NAAMSA):**  
-1. **Collaborate on EVs**: Pilot EV trucks (10 units in 2023).  
-2. **Data Sharing**: Provide telemetry benchmarks for industry standards.  
+This report empowers stakeholders with high-level and drill-down views on:
+
+- **Fleet Performance**: Utilization, mileage trends, downtime hotspots  
+- **Revenue and Profitability**: Branch-level margins, contract mix, EBITDA tracking  
+- **Customer Segments**: Retention patterns, corporate spend, CRM effectiveness  
+- **Maintenance Patterns**: Service types, warranty activity, and downtime cost  
+
+KPI cards and interactive visuals enable real-time monitoring and dynamic storytelling for strategic reviews and partner briefings.
+
+---
+
+## 4. Insights Deep Dive
+
+### Fleet Utilization & Maintenance
+
+- **Top Performing Assets**: Toyota Corolla and VW Polo fleets show >90% utilization  
+- **Service Impact**: 1.5 avg. downtime days per event in major metros  
+- **Telemetry Findings**: SUVs record 18% higher average fuel consumption than sedans  
+
+### Financial Trends
+
+- **Branch EBITDA Spread**: Western Cape branches yield the highest EBITDA per asset  
+- **Contract Growth**: Leasing contracts rose 14% QoQ, especially among logistics clients  
+- **Revenue Concentration**: Top 5 branches contribute 62% of YTD income  
+
+### Customer Behavior
+
+- **Loyalty Leverage**: Customers with loyalty status spend 2.1x more per year  
+- **Consent for Marketing**: 74% CRM opt-in rate enables targeted campaigns  
+- **Corporate Share**: 65% of revenue is attributed to long-term B2B clients  
+
+---
+
+## 5. Strategic Recommendations
+
+### Operational Actions
+
+- **Reallocate Idle Fleet**: Shift underutilized vehicles to Gauteng’s high-demand corridor  
+- **Branch SLA Reviews**: Target top-3 branches with extended maintenance turnaround times  
+
+### Financial Optimization
+
+- **Expand Leasing in Profitable Segments**: Target B2B SMEs and corporate logistics  
+- **Incorporate Predictive Pricing Models**: Dynamic discounting based on vehicle wear, telemetry, and utilization  
+
+### Stakeholder Engagement
+
+- **OEM Briefings**: Share usage and failure trends with OEMs to optimize service intervals and specs  
+- **NAAMSA Submissions**: Automate KPI extracts for regulatory and benchmarking transparency  
+
+---
+
+## 6. Next Steps
+
+This BI solution forms the foundation for future enhancements:
+
+- **Power BI Service Deployment** with row-level security  
+- **Automated data refresh via Microsoft Fabric Pipelines**  
+- **Self-service dashboards** for EXCO and Operations teams  
+- **OEM-specific scorecards** tailored to brand partnerships  
+
+---
