@@ -1,5 +1,5 @@
 -- ================================================================================================================
--- Load Data into Gold Layer Tables (Safe FK Version)
+-- Load Data into Gold Layer Tables
 -- ================================================================================================================
 /* 
 This script performs the transformation and load process for the Gold Layer 
