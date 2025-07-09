@@ -50,9 +50,9 @@ SELECT crm_customer_id,
 	   last_interaction_date,
 	   -- Normalize follow up values to readable format
 	   CASE UPPER(TRIM(marketing_consent))
-			WHEN 'Y' THEN 'YES'
-			WHEN 'N' THEN 'NO'
-			ELSE NULL
+		WHEN 'Y' THEN 'YES'
+		WHEN 'N' THEN 'NO'
+		ELSE NULL
 	   END marketing_consent,
 	   customer_segment,
 	   crm_last_updated
@@ -213,14 +213,14 @@ SELECT erp_contract_id,
 	   km_limit,
 	   -- Normalize follow up values to readable format
 	   CASE UPPER(TRIM(maintenance_included))
-			WHEN 'Y' THEN 'YES'
-			WHEN 'N' THEN 'NO'
-			ELSE NULL
+		WHEN 'Y' THEN 'YES'
+		WHEN 'N' THEN 'NO'
+		ELSE NULL
 	   END maintenance_included,
 	   CASE UPPER(TRIM(insurance_included))
-			WHEN 'Y' THEN 'YES'
-			WHEN 'N' THEN 'NO'
-			ELSE NULL
+		WHEN 'Y' THEN 'YES'
+		WHEN 'N' THEN 'NO'
+		ELSE NULL
 	   END insurance_included,
 	   payment_method,
 	   contract_status,
@@ -259,9 +259,9 @@ SELECT erp_maintenance_id,
 	   main_description,
 	   -- Normalize follow up values to readable format
 	   CASE UPPER(TRIM(warranty_claim)) 
-			WHEN 'Y' THEN 'YES'
-			WHEN 'N' THEN 'NO'
-			ELSE NULL
+		WHEN 'Y' THEN 'YES'
+		WHEN 'N' THEN 'NO'
+		ELSE NULL
 	   END warranty_claim,
 	   erp_last_updated
 FROM bronze.erp_vehicle_maintenance;
@@ -295,9 +295,9 @@ SELECT crm_interaction_id,
 	   TRIM(assigned_agent),
 	   -- Normalize follow up values to readable format
 	   CASE UPPER(TRIM(followup_required))
-			WHEN 'Y' THEN 'YES'
-			WHEN 'N' THEN 'NO'
-			ELSE NULL
+		WHEN 'Y' THEN 'YES'
+		WHEN 'N' THEN 'NO'
+		ELSE NULL
 	   END followup_required,
 	   followup_date,
 	   crm_last_updated
