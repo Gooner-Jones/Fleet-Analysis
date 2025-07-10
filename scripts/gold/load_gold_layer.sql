@@ -8,7 +8,7 @@ This script performs the transformation and load process for the Gold Layer
 Updated to use DELETE for tables involved in foreign key relationships.
 */
 
-USE ZedaFleet;
+USE Fleet;
 GO
 
 -- ================================================================================================================
