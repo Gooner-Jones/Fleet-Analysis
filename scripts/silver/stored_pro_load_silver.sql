@@ -12,6 +12,16 @@
 
    Usage Example: EXEC Silver.load_silver;
 */
+
+CREATE OR ALTER PROCEDURE silver.load_silver AS
+BEGIN
+PRINT '================================================';
+PRINT 'Loading Silver Layer';
+PRINT '================================================';
+
+PRINT '------------------------------------------------';
+PRINT 'Loading CRM Tables';
+PRINT '------------------------------------------------';
 -- ================================================================================================================
 -- 1. Silver Customers Table
 
@@ -341,5 +351,8 @@ SELECT iot_telemetry_id,
 	   iot_last_updated
 FROM bronze.iot_fleet_telemetry;
 GO
-
-PRINT 'Silver layer tables created and populated successfully';
+-- ================================================================================================================
+PRINT '=========================================='
+PRINT 'Silver layer tables created and populated successfully'
+PRINT '=========================================='
+END
