@@ -22,7 +22,7 @@ GO
 CREATE DATABASE Fleet;
 GO
 
-USE ZedaFleet;
+USE Fleet;
 GO
 
 -- Create Schemas
