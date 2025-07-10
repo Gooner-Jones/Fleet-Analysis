@@ -7,7 +7,7 @@ if they already exist.
 Run this script to re-define the DDL structure of the 'gold' Tables
 */
 
-USE ZedaFleet;
+USE Fleet;
 GO
 
 -- Drop existing gold tables if they exist
