@@ -7,6 +7,9 @@ if they already exist.
 Run this script to re-define the DDL structure of the 'bronze' Tables
 */
 
+USE Fleet;
+GO
+
 IF OBJECT_ID('bronze.crm_customer_interactions', 'U') IS NOT NULL
 DROP TABLE bronze.crm_customer_interactions;
 GO
