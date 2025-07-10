@@ -23,14 +23,14 @@ BEGIN
 	BULK INSERT bronze.crm_customer_interactions
 	FROM 'C:\Users\User\OneDrive\Desktop\ZEDA LTD\fleet_data\crm_data\customer_interactions.csv'
 	WITH (FIRSTROW = 2,
-		  FIELDTERMINATOR = ',',
+	      FIELDTERMINATOR = ',',
 	      TABLOCK);
 
 	TRUNCATE TABLE bronze.crm_customers;
 	BULK INSERT bronze.crm_customers
 	FROM 'C:\Users\User\OneDrive\Desktop\ZEDA LTD\fleet_data\crm_data\customers.csv'
 	WITH (FIRSTROW = 2,
-		  FIELDTERMINATOR = ',',
+	      FIELDTERMINATOR = ',',
 	      TABLOCK);
 
 	PRINT '=====================================================================================';
@@ -40,35 +40,35 @@ BEGIN
 	BULK INSERT bronze.erp_car_sales
 	FROM 'C:\Users\User\OneDrive\Desktop\ZEDA LTD\fleet_data\erp_data\car_sales.csv'
 	WITH (FIRSTROW = 2,
-		  FIELDTERMINATOR = ',',
+	      FIELDTERMINATOR = ',',
 	      TABLOCK);
 		  
 	TRUNCATE TABLE bronze.erp_leasing_contracts;
 	BULK INSERT bronze.erp_leasing_contracts
 	FROM 'C:\Users\User\OneDrive\Desktop\ZEDA LTD\fleet_data\erp_data\leasing_contracts.csv'
 	WITH (FIRSTROW = 2,
-		  FIELDTERMINATOR = ',',
+	      FIELDTERMINATOR = ',',
 	      TABLOCK);
 
 	TRUNCATE TABLE bronze.erp_rentals;
 	BULK INSERT bronze.erp_rentals
 	FROM 'C:\Users\User\OneDrive\Desktop\ZEDA LTD\fleet_data\erp_data\rentals.csv'
 	WITH (FIRSTROW = 2,
-		  FIELDTERMINATOR = ',',
+	      FIELDTERMINATOR = ',',
 	      TABLOCK);
 
 	TRUNCATE TABLE bronze.erp_vehicle_maintenance;
 	BULK INSERT bronze.erp_vehicle_maintenance
 	FROM 'C:\Users\User\OneDrive\Desktop\ZEDA LTD\fleet_data\erp_data\vehicle_maintenance.csv'
 	WITH (FIRSTROW = 2,
-		  FIELDTERMINATOR = ',',
+	      FIELDTERMINATOR = ',',
 	      TABLOCK);
 
 	TRUNCATE TABLE bronze.erp_vehicles;
 	BULK INSERT bronze.erp_vehicles
 	FROM 'C:\Users\User\OneDrive\Desktop\ZEDA LTD\fleet_data\erp_data\vehicles.csv'
 	WITH (FIRSTROW = 2,
-		  FIELDTERMINATOR = ',',
+	      FIELDTERMINATOR = ',',
 	      TABLOCK);
 
 	PRINT '=====================================================================================';
@@ -78,8 +78,8 @@ BEGIN
 	BULK INSERT bronze.iot_fleet_telemetry
 	FROM 'C:\Users\User\OneDrive\Desktop\ZEDA LTD\fleet_data\iot_data\fleet_telemetry.csv'
 	WITH (FIRSTROW = 2,
-		  FIELDTERMINATOR = ',',
-		  TABLOCK);
+	      FIELDTERMINATOR = ',',
+	      TABLOCK);
 END
 GO
 
