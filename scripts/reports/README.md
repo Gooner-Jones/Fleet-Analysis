@@ -1,6 +1,6 @@
 # 📊 Fleet & Financial Performance Analytics (Gold Layer)
 
-**Pinnova Mobility Group – Modern Data Stack | Microsoft Fabric Warehouse | Power BI Embedded**
+**Pinnova Mobility Group – Modern Data Stack**
 
 ---
 
