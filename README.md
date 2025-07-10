@@ -107,3 +107,9 @@ This BI solution forms the foundation for future enhancements:
 - **OEM-specific scorecards** tailored to brand partnerships  
 
 ---
+# About Me
+Hi, I'm Neo Jones — a Microsoft Certified Fabric Analytics Engineer and Microsoft Certified Fabric Data Engineer Associate with a growing passion for data engineering. I thrive on solving real-world problems using SQL, and I'm especially excited about the capabilities of Microsoft Fabric. From building data pipelines to exploring insights in the Lakehouse, I enjoy every part of working with data inside this evolving ecosystem.
+
+This portfolio reflects my journey into the tech field, showcasing my hands-on projects, SQL skills, and curiosity-driven learning. Outside of work and code, I’m a proud single dad and a lifelong Arsenal supporter (yes, even through the tough seasons!).
+
+Thanks for checking out my work — let’s build something great with data.
